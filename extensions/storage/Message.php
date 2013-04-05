@@ -4,14 +4,14 @@ namespace li3_message\extensions\storage;
 
 class Message extends \lithium\core\StaticObject {
 
-	/**
-	 * Class dependencies.
-	 *
-	 * @var array
-	 */
-	protected static $_classes = array(
-		'session' => 'lithium\storage\Session'
-	);
+    /**
+     * Class dependencies.
+     *
+     * @var array
+     */
+    protected static $_classes = array(
+        'session' => 'lithium\storage\Session'
+    );
 
     /**
      * Message types and their configurations.
@@ -73,42 +73,42 @@ class Message extends \lithium\core\StaticObject {
     }
 
     /**
-	 * Writes a message.
-	 *
-	 * @param string $message
-	 * @param array $options
-	 * @param string $key
-	 * @return boolean
-	 */
-	public static function write($message, array $options = array(), $key = 'default') {
-		$session = static::$_classes['session'];
-		return $session::write("Message.{$key}", compact('message', 'options'), array('name' => 'default'));
-	}
+     * Writes a message.
+     *
+     * @param string $message
+     * @param array $options
+     * @param string $key
+     * @return boolean
+     */
+    public static function write($message, array $options = array(), $key = 'default') {
+        $session = static::$_classes['session'];
+        return $session::write("Message.{$key}", compact('message', 'options'), array('name' => 'default'));
+    }
 
-	/**
-	 * Reads a message.
-	 *
-	 * @param string $key
-	 * @return array
-	 */
-	public static function read($key = 'default') {
-		$session = static::$_classes['session'];
-		return $session::read("Message.{$key}", array('name' => 'default'));
-	}
+    /**
+     * Reads a message.
+     *
+     * @param string $key
+     * @return array
+     */
+    public static function read($key = 'default') {
+        $session = static::$_classes['session'];
+        return $session::read("Message.{$key}", array('name' => 'default'));
+    }
 
-	/**
-	 * Clears one or all messages from the storage.
-	 *
-	 * @param string $key Optional key. Set this to `null` to delete all flash messages.
-	 * @return void
-	 */
-	public static function clear($key = 'default') {
-		$session = static::$_classes['session'];
-		$sessionKey = 'Message';
-		if (!empty($key)) {
-			$sessionKey .= ".{$key}";
-		}
-		return $session::delete($sessionKey, array('name' => 'default'));
-	}
+    /**
+     * Clears one or all messages from the storage.
+     *
+     * @param string $key Optional key. Set this to `null` to delete all flash messages.
+     * @return void
+     */
+    public static function clear($key = 'default') {
+        $session = static::$_classes['session'];
+        $sessionKey = 'Message';
+        if (!empty($key)) {
+            $sessionKey .= ".{$key}";
+        }
+        return $session::delete($sessionKey, array('name' => 'default'));
+    }
 
 }
