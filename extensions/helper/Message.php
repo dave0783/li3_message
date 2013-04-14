@@ -58,11 +58,18 @@ class Message extends \lithium\template\Helper {
 
         $template = $this->_classes[$template];
 
+        // This isn't very clean and should be refactored
         $filter = function($message) use(&$filter, $self, $template, $name) {
             $return = array();
 
             if (array_key_exists('message', $message)) {
-                $return[] = $self->invokeMethod('_render', array($name, $template, $message));
+                if (is_array($message['message'])) {
+                    foreach ($message['message'] as $m) {
+                        $return[] = $filter(['message' => $m, 'options' => $message['options']]);
+                    }
+                } else {
+                    $return[] = $self->invokeMethod('_render', array($name, $template, $message));
+                }
             } else {
                 foreach($message as $m) {
                     $return[] = $filter($m);
